@@ -1,0 +1,62 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x08000000         0x00020000         xr
+sram             0x20000000         0x00005000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x08000000      0x100
+ *(.vectors*)
+ *(.text*)
+ .text          0x08000000       0x58 startup.o
+ .text          0x08000058       0xa8 main.o
+                0x08000058                main
+
+.data           0x08000100        0x4
+ .data          0x08000100        0x0 startup.o
+ .data          0x08000100        0x4 main.o
+                0x08000100                PT_ODR
+
+.igot.plt       0x08000104        0x0
+ .igot.plt      0x00000000        0x0 startup.o
+
+.glue_7         0x08000104        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x08000104        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x08000104        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08000104        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x08000104        0x0
+ .iplt          0x00000000        0x0 startup.o
+
+.rel.dyn        0x08000104        0x0
+ .rel.iplt      0x00000000        0x0 startup.o
+
+.bss            0x20000000        0x0
+ *(.bss*)
+ .bss           0x20000000        0x0 startup.o
+ .bss           0x20000000        0x0 main.o
+LOAD startup.o
+LOAD main.o
+OUTPUT(learn-in-depth.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x2f
+ .ARM.attributes
+                0x00000000       0x21 startup.o
+ .ARM.attributes
+                0x00000021       0x33 main.o
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 main.o
+                                 0x12 (size before relaxing)
