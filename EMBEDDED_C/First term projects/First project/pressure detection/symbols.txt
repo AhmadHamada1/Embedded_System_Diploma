@@ -1,0 +1,94 @@
+$ arm-none-eabi-nm.exe driver.o
+00000000 T Delay
+00000024 T getPressureVal
+0000008c T GPIO_INITIALIZATION
+0000003c T Set_Alarm_actuator
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$ arm-none-eabi-nm.exe Pressure_Sensor.o
+         U Delay
+00000004 C sen_pointer
+00000001 C sen_state_id
+         U set_pressure_value
+0000002c T ST_reading
+00000000 T ST_sen_init
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$ arm-none-eabi-nm.exe App.o
+00000004 C app_pointer
+00000001 C app_state_id
+         U getPressureVal
+00000000 B Pval
+00000078 T set_pressure_value
+0000004c T ST_app_alarm_on
+00000000 T ST_pressure_detection
+         U start_alarm
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$ arm-none-eabi-nm.exe Alarm_Actuator.o
+00000004 C alarm_pointer
+00000001 C alarm_state_id
+         U Delay
+         U Set_Alarm_actuator
+00000000 T ST_alarm_init
+00000084 T ST_alarm_off
+0000002c T ST_alarm_on
+0000006c T ST_waiting
+000000a4 T start_alarm
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$ arm-none-eabi-nm.exe main.o
+00000004 C alarm_pointer
+00000001 C alarm_state_id
+00000004 C app_pointer
+00000001 C app_state_id
+         U GPIO_INITIALIZATION
+00000000 T main
+00000004 C sen_pointer
+00000001 C sen_state_id
+00000030 T setup
+         U ST_alarm_off
+         U ST_pressure_detection
+         U ST_sen_init
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$ arm-none-eabi-nm.exe Pressure_Controller_Alarm.elf
+20000004 B _E_bss
+20000000 T _E_data
+08000400 T _E_text
+20000000 B _s_bss
+20000000 T _s_data
+20001004 B alarm_pointer
+20001008 B alarm_state_id
+20001010 B app_pointer
+2000100c B app_state_id
+08000348 W BusFault_Handler
+08000348 T Default_Handler
+0800016c T Delay
+08000190 T getPressureVal
+080001f8 T GPIO_INITIALIZATION
+08000348 W HardFault_Handler
+08000278 T main
+08000348 W MemManage_Handler
+08000348 W NMI_Handler
+20000000 B Pval
+08000354 T Rest_Handler
+20001014 B sen_pointer
+20001018 B sen_state_id
+080001a8 T Set_Alarm_actuator
+08000154 T set_pressure_value
+080002a8 T setup
+0800001c T ST_alarm_init
+080000a0 T ST_alarm_off
+08000048 T ST_alarm_on
+08000128 T ST_app_alarm_on
+080000dc T ST_pressure_detection
+08000314 T ST_reading
+080002e8 T ST_sen_init
+08000088 T ST_waiting
+20001004 B stack_top
+080000c0 T start_alarm
+08000348 W UsageFault_Handler
+08000000 T Vectors
+
+
